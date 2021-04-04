@@ -14,7 +14,18 @@ class TodolistsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id])
+    @list = List.find_by(id: params[:id])
+  end
+
+  def edit
+    @list = List.find_by(id: params[:id])
+  end
+  
+  def update
+    list = List.find_by(id: params[:id])
+    list.update(list_params)
+    redirect_to todolist_path(list.id)
+    
   end
 
 
@@ -26,4 +37,5 @@ class TodolistsController < ApplicationController
   def list_params
     params.require(:list).permit(:title, :body)
   end
+  
 end
